@@ -14,7 +14,15 @@ const Button = (props) => (
 )
 
 const StatisticsLine = (props) => (
-  <p>{props.text} {props.value}</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>{props.text}</td>
+        <td>{props.value}</td>
+      </tr>
+    </tbody>
+  </table>
+  
  )
 
 
