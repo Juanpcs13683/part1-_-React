@@ -18,11 +18,12 @@ const Display = (props) => (
  )
 
 
-const Positive = (props) => (
-  <p>{props.text} {props.value}  % </p>
+
+const Statistics = (props) => (
+  <div>
+    <p>{props.text} {props.value}</p>
+  </div>
 )
-
-
 
 function App() {
 
@@ -80,12 +81,12 @@ function App() {
       <Button handleClick={SetToNeutral} text={'Neutral'} />
       <Button handleClick={setToBad} text={'Bad'} />
       <Title2 text={'statistics'} />
-      <Display text="good" value={good} />
-      <Display text="neutral" value={neutral} />
-      <Display text="bad" value={bad} />    
-      <Display text="all"  value={allFeedback}/>
-      <Display text="average" value={average}/>
-      <Positive text="positive" value={positive}/>
+      <Statistics text='good' value={good} />
+      <Statistics text='neutral' value={neutral} />
+      <Statistics text='bad' value={bad} />
+      <Statistics text='all' value={allFeedback} />
+      <Statistics text='average' value={average} />
+      <Statistics text='positive' value={positive} />
     </div>
 
   );
