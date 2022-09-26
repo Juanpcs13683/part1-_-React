@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
+
+const Votes = (props) => <p>has {props.value} votes</p>
+
+const Anecdote = ({anecdote}) => <p>{anecdote}</p>
+
+const Tittles = ({text}) => <h1>{text}</h1>
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -10,18 +18,44 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
-   
-  const random = () => {
-    setSelected(Math.floor(Math.random() * anecdotes.length))
-    
-  }
 
   const [selected, setSelected] = useState(0)
+  const [vote, setVote] = useState(0)
+  const [points, setPoints] = useState(new Uint8Array(anecdotes.length))
+  //const points = new Uint8Array(anecdotes.length) //it makes an array with the distance of all elements inside
+  //anecdotes, and initialize is as zeros
+  const copy = [...points]
+ 
+ 
+  const [graterValue, setGreaterValue] = useState({gVotes:0, gAnecdote:0})
+  console.log(graterValue)
+  const random = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length)) 
+    setVote(0)}
+    
+
+  const SetToVote = () => {
+    setVote(vote+1)
+    copy[selected] =vote+1
+    setPoints(copy)
+    console.log('copy', points)
+    if(vote+1>graterValue.gVotes){
+      setGreaterValue({...graterValue, gVotes: vote+1, gAnecdote: selected} )
+    }
+  }
+
+  console.log('puntos', points)
 
   return (
     <div>
-     <p>{anecdotes[selected]}</p>
-      <button onClick={random}>next anecdote</button>
+      <Tittles text="Anecdote of the day" />
+     <Anecdote anecdote={anecdotes[selected]} />
+     <Votes value={vote} />
+     <Button onClick={SetToVote} text="vote" />
+      <Button onClick={random} text="next anecdote" />
+      <Tittles text="Anecdote with most votes" />
+      <Anecdote anecdote={anecdotes[graterValue.gAnecdote]} />
+      <Votes value={graterValue.gVotes}/>
     </div>
   )
 }
